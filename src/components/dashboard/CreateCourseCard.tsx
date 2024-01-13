@@ -13,7 +13,7 @@ const CreateCourseCard = (props: Props) => {
       className="hover:cursor-pointer hover:opacity-75"
       onClick={() => {
         console.log("Richard Have No Clue")
-        router.push("/course")
+        router.push("/create")
       }}
     >
       <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">

@@ -17,6 +17,9 @@ type Props = {
 
 const ConfirmCourse = ({ course }: Props) => {
   const [loading, setLoading] = React.useState(false);
+  const [completedChapters, setCompletedChapters] = React.useState<Set<String>>(
+    new Set()
+  );
   const chapterRefs: Record<string, React.RefObject<ChapterCardHandler>> = {};
   course.units.forEach((unit) => {
     unit.chapters.forEach((chapter) => {
@@ -24,6 +27,14 @@ const ConfirmCourse = ({ course }: Props) => {
       chapterRefs[chapter.id] = React.useRef(null);
     });
   });
+
+  const totalChaptersCount = React.useMemo(() => {
+    return course.units.reduce((acc, unit) => {
+      return acc + unit.chapters.length;
+    }, 0);
+  }, [course.units]);
+  console.log(totalChaptersCount, completedChapters.size);
+
   return (
     <div className='w-full mt-4'>
         {course.units.map((unit, unitIndex) => {
@@ -37,6 +48,8 @@ const ConfirmCourse = ({ course }: Props) => {
                     {unit.chapters.map((chapter, chapterIndex)=>{
                         return(
                             <ChapterCard 
+                            completedChapters={completedChapters}
+                            setCompletedChapters={setCompletedChapters}
                             ref = {chapterRefs[chapter.id]}
                             key={chapter.id} 
                             chapter ={chapter} 
@@ -59,17 +72,32 @@ const ConfirmCourse = ({ course }: Props) => {
             <ChevronLeft className="w-4 h-4 mr-2" strokeWidth={4} />
             Back
           </Link>
-
-            <Button type="button" className='ml-4 font-semibold'
+          {totalChaptersCount === completedChapters.size ? (
+            <Link
+              className={buttonVariants({
+                className: "ml-4 font-semibold",
+              })}
+              href={`/course/${course.id}/0/0`}
+            >
+              Save & Continue
+              <ChevronRight className="w-4 h-4 ml-2" />
+            </Link>
+          ) : (
+            <Button
+              type="button"
+              className="ml-4 font-semibold"
+              disabled={loading}
               onClick={() => {
+                setLoading(true);
                 Object.values(chapterRefs).forEach((ref) => {
-                  ref.current?.triggerLoad()
-                })
+                  ref.current?.triggerLoad();
+                });
               }}
             >
               Generate
-              <ChevronRight className="w-4 h-4 mr-2" strokeWidth={4} />
+              <ChevronRight className="w-4 h-4 ml-2" strokeWidth={4} />
             </Button>
+          )}
           </div>
           <Separator className='flex-[1]'/>
         </div>
