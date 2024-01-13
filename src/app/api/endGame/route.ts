@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db";
 import { endGameSchema } from "@/schemas/questions";
 import { NextResponse } from "next/server";
 
+export const runtime = "edge";
 export async function POST(req: Request, res: Response) {
   try {
     const body = await req.json();

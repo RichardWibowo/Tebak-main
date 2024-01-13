@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 // api/chapter/getInfo
+export const runtime = "edge";
 
 const bodyParser = z.object({
     chapterId: z.string(),
