@@ -4,6 +4,7 @@ import { quizCreationSchema } from "@/schemas/forms/quiz";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import axios from "axios";
+
 export const runtime = "edge";
 export async function POST(req: Request, res: Response) {
   try {
