@@ -14,7 +14,7 @@ import { getServerSession } from "next-auth";
 export default async function Home() {  
   const session = await getServerSession();
   if (session?.user) {
-    redirect("/dashboard");
+    redirect(`${process.env.API_URL as string}/dashboard`);
 
   
   }

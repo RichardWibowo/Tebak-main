@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Tebak",
-  description: "Quiz yourself on anything, Inspired by Elliot Chong!",
+  description: "ok, we made it lol",
 };
 
 export default function RootLayout({
