@@ -7,7 +7,6 @@ import { strict_output } from "@/lib/gpt";
 import { getUnsplashImage } from "@/lib/unsplash";
 import { prisma } from "@/lib/db";
 
-export const runtime = "edge";
 export async function POST(req : Request, res : Response) {
     try{
         const body = await req.json();

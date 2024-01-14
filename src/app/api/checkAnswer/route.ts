@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 import stringSimilarity from "string-similarity";
 
-export const runtime = "edge";
+
 export async function POST(req: Request, res: Response) {
   try {
     const body = await req.json();
